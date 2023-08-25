@@ -10,15 +10,15 @@ class TestGuessTheNumberGame(unittest.TestCase):
         self.assertIsInstance(random_number, str)
         self.assertTrue(1000 <= int(random_number) <= 9999)
 
-    # def test_get_feedback(self):
-    #     feedback = self.game.get_feedback("1234")
-    #     self.assertEqual(feedback, "xxxx")
+    def test_get_feedback(self):
+        feedback = self.game.get_feedback("1234")
+        self.assertEqual(feedback, "xxxx")
 
-    #     feedback = self.game.get_feedback("4321")
-    #     self.assertEqual(feedback, "oooo")
+        feedback = self.game.get_feedback("4321")
+        self.assertEqual(feedback, "oooo")
 
-    #     feedback = self.game.get_feedback("1243")
-    #     self.assertEqual(feedback, "ooox")
+        feedback = self.game.get_feedback("1243")
+        self.assertEqual(feedback, "ooox")
 
 
 if __name__ == '__main__':
