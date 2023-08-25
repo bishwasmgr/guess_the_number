@@ -1,40 +1,49 @@
 import random
 
-def generate_random_number():
-    return ''.join(random.sample('0123456789', 4))
+class GuessTheNumberGame:
+    def __init__(self):
+        self.secret_number = self.generate_random_number()
+        self.attempts = 0
 
-def compare_numbers(secret_number, guess):
-    result = ""
-    for i in range(4):
-        if guess[i] == secret_number[i]:
-            result += "O"
-        elif guess[i] in secret_number:
-            result += "X"
-    return result
+    def generate_random_number(self):
+        return str(random.randint(1000, 9999))
 
-def play_game():
-    secret_number = generate_random_number()
-    attempts = 0
+    def get_feedback(self, guess):
+        feedback = ""
+        for i in range(4):
+            if guess[i] == self.secret_number[i]:
+                feedback += "o"
+            elif guess[i] in self.secret_number:
+                feedback += "x"
+            else:
+                feedback += "-"
+        return feedback
 
-    while True:
-        guess = input("Enter your guess (4-digit number) or 'q' to quit: ")
+    def play_game(self):
+        print("Welcome to Guess the Number Game!")
+        print("Try to guess the 4-digit secret number.")
         
-        if guess.lower() == 'q':
-            print("Quitting the game.")
-            break
-        
-        if not guess.isdigit() or len(guess) != 4:
-            print("Invalid input. Please enter a 4-digit number.")
-            continue
-        
-        attempts += 1
-        result = compare_numbers(secret_number, guess)
-        
-        if result == "OOOO":
-            print(f"Congratulations! You've guessed the number {secret_number} in {attempts} attempts.")
-            break
-        else:
-            print("Hints:", result)
+        while True:
+            guess = input("Enter your guess (4-digit number) or 'q' to quit: ")
+            
+            if guess.lower() == 'q':
+                print(f"The secret number was {self.secret_number}.")
+                print("Thanks for playing!")
+                break
+            
+            if not guess.isdigit() or len(guess) != 4:
+                print("Invalid input. Please enter a 4-digit number.")
+                continue
+            
+            self.attempts += 1
+            feedback = self.get_feedback(guess)
+            
+            if feedback == "oooo":
+                print(f"Congratulations! You've guessed the number {self.secret_number} in {self.attempts} attempts.")
+                break
+            else:
+                print("Hints:", feedback)
 
-if __name__ == '__main__':
-    play_game()
+if __name__ == "__main__":
+    game = GuessTheNumberGame()
+    game.play_game()
